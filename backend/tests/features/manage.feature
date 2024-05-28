@@ -47,3 +47,9 @@ Scenario: Cancelar uma reserva existente
   And  sou redirecionado para a página “Reservas Publicadas”
   And a reservada deve ser cancelada com sucesso 
   And consigo ver as edições aplicadas
+
+  Scenario: Visualizar lista de todas as reservas
+  Given que estou logado como usuário “Hoteleiro” com login “thaisnevest” e senha “12345678” do hotel “Serrambi Resort”
+  And estou na página de gerenciamento de reservas
+  And clico no botão “ver todas as reservas”
+  Then devo ver uma lista com as reservas “Bangalô”, “Suíte Praia”, “Quarto família”, e “Quarto beira-mar”
