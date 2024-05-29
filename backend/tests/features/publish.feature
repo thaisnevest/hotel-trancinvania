@@ -34,4 +34,8 @@ Scenario: Publicar uma reserva com dados incompletos
   And a reserva não deve ser publicada
   And eu permaneço na página de “Publicação de Reservas”
 
-teste
+Scenario: Visualizar lista de todas as reservas
+  Given que estou logado como proprietário do hotel "Resort Coqueiro" com credenciais válidas
+  And estou na página de gerenciamento de reservas
+  And clico no botão “ver todas as reservas”
+  Then devo ver uma lista com as reservas “Bangalô”, “Suíte Praia”, “Quarto família”, e “Quarto beira-mar”
