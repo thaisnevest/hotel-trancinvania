@@ -33,3 +33,16 @@ Scenario: Publicar uma reserva com dados incompletos
   Then devo ver a seguinte mensagem de erro “Os campos obrigatórios não foram preenchidos”
   And a reserva não deve ser publicada
   And eu permaneço na página de “Publicação de Reservas”
+
+Scenario: Publicar uma reserva sem estar autenticado
+ Given que não estou logado no sistema como usuário “Hoteleiro”
+ And estou na página de publicação de reservas
+ When eu preencho o campo “Nome da Reserva” com “Quarto Família”
+ And preencho o campo “Tipo do Quarto” com “Família”
+ And preencho o campo “Camas” com “1 cama de casal e 2 camas de solteiro”
+ And preencho o campo “Acomoda” com “4”
+ And preencho o campo “Espaço” com “38m²”
+ And seleciono o campo “Wi-Fi grátis”
+ And preencho o campo “Valor” com “R$560/diária”
+ Then devo ver a seguinte mensagem de erro: “Você precisa estar logado como Hoteleiro para realizar a reserva”
+ And a reserva não deve ser publicada
