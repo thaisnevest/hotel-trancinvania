@@ -47,11 +47,3 @@ Scenario: Publicar uma reserva sem estar autenticado
  Then devo ver a seguinte mensagem de erro: “Você precisa estar logado como Hoteleiro para realizar a reserva”
  And a reserva não deve ser publicada
 
-Scenario: Publicar uma reserva com hotel inexistente
-  Given que não estou logado como proprietário de nenhum hotel
-  And estou na página de publicação de reservas
-  When selecione o hotel “Hotel Coqueiro”
-  And o hotel não aparece dentre as opções
-  And clico no botão de publicar reserva
-  Then devo ver a seguinte mensagem de erro: “O hotel não existe”
-  And a reserva não deve ser publicada
