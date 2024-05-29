@@ -47,3 +47,4 @@ Scenario: Publicar uma reserva sem estar autenticado
  Then devo ver a seguinte mensagem de erro: “Você precisa estar logado como Hoteleiro para realizar a reserva”
  And a reserva não deve ser publicada
 
+teste
