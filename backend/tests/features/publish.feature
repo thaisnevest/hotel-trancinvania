@@ -33,3 +33,5 @@ Scenario: Publicar uma reserva com dados incompletos
   Then devo ver a seguinte mensagem de erro “Os campos obrigatórios não foram preenchidos”
   And a reserva não deve ser publicada
   And eu permaneço na página de “Publicação de Reservas”
+
+teste
