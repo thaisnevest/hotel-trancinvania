@@ -2,6 +2,9 @@ import nodemailer from "nodemailer"
 
 
 export default class EmailService {
+    sendMail(clientEmail: any, arg1: string, arg2: string) {
+      throw new Error("Method not implemented.");
+    }
     public static async sendEmail(to: string, subject: string, text: string): Promise<void> {
         
         const USER_EMAIL = process.env.USER_EMAIL;

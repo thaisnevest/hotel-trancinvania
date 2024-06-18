@@ -1,21 +1,42 @@
-import { IGetReservationsByFilters } from "../controllers/publishedReservation.controller";
+import { PublishedReservation } from "@prisma/client";
 import PublishedReservationRepository from "../repositories/publishedReservation.repository";
-
+import EmailService from "./email.service";
 
 export default class PublishedReservationService {
-
     private publishedReservationRepository: PublishedReservationRepository;
+    private emailService: EmailService;
 
     constructor() {
         this.publishedReservationRepository = new PublishedReservationRepository();
+        this.emailService = new EmailService();
     }
 
-    public async getAllPublishedReservations(){
-        return await this.publishedReservationRepository.getAllPublishedReservations();
+    async getAllPublishedReservations() {
+        return this.publishedReservationRepository.getAllPublishedReservations();
     }
 
-    public async getReservationsByFilters(params : IGetReservationsByFilters){
-        const matchReservations = await this.publishedReservationRepository.getPublishedReservationsByFilters(params);
-        return matchReservations;
+    async updatePublishedReservation(id: number, updateData: Partial<PublishedReservation>) {
+        return this.publishedReservationRepository.updatePublishedReservation(id, updateData);
     }
+
+    async deletePublishedReservation(id: number) {
+        return this.publishedReservationRepository.deletePublishedReservation(id);
+    }
+
+    async cancelReservation(id: number) {
+      const canceledReservation = await this.publishedReservationRepository.cancelReservation(id);
+  
+      if (canceledReservation.hotelier) {
+          await this.emailService.sendEmail(
+              canceledReservation.hotelier.email,
+              'Cancelamento de Reserva',
+              `Olá, sua reserva no hotel ${canceledReservation.name} foi cancelada.`
+          );
+      } else {
+          throw new Error('Hotelier não encontrado para enviar e-mail de cancelamento');
+      }
+  
+      return canceledReservation;
+  }
+  
 }
