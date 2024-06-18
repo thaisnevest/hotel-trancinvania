@@ -2,6 +2,22 @@
 
 This is the Back-end base project in Node.js for the Software and Systems Engineering discipline, offered by the Informatics Center (CIn) of the Federal University of Pernambuco (UFPE).
 
+
+## Como rodar
+
+Use o .env.docker para gerar um arquivo .env dentro da pasta
+
+Para iniciar o docker
+
+```
+    docker compose up --build -d
+```
+
+Para rodar as migrations:
+
+npx prisma migrate dev --name init
+
+
 ## Table of Contents
 
 1. [Getting Started](##getting-started)

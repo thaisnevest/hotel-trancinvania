@@ -1,25 +1,15 @@
 import { Request, Response } from 'express';
 
 export abstract class Result {
-  msg: string;
-  msgCode: any;
-  code: number;
+  message: string;
+  status: number;
 
-  constructor({
-    msg,
-    msgCode,
-    code,
-  }: {
-    msg: string;
-    msgCode: any;
-    code: number;
-  }) {
-    this.msg = msg;
-    this.msgCode = msgCode;
-    this.code = code;
+  constructor({ message, status }: { message: string; status: number }) {
+    this.message = message;
+    this.status = status;
   }
 
-  static transformRequestOnMsg(req: Request) {
+  static transformRequestOnMessage(req: Request) {
     return `${req.method} ${req?.originalUrl}`;
   }
 }
@@ -27,40 +17,25 @@ export abstract class Result {
 export class SuccessResult extends Result {
   data?: any;
 
-  constructor({
-    msg,
-    msgCode,
-    code,
-    data,
-  }: {
-    msg: string;
-    msgCode?: any;
-    code?: number;
-    data?: any;
-  }) {
-    super({ msg, msgCode: msgCode || 'success', code: code || 200 });
+  constructor({ message, status, data }: { message: string; status: number; data?: any }) {
+    super({ message, status });
     this.data = data;
   }
 
   handle(res: Response) {
-    return res.status(this.code).send(this);
+    return res.status(this.status).send(this);
   }
 }
 
 export class FailureResult extends Result {
-  constructor({
-    msg,
-    msgCode,
-    code,
-  }: {
-    msg: string;
-    msgCode?: any;
-    code?: number;
-  }) {
-    super({ msg, msgCode: msgCode || 'failure', code: code || 500 });
+  constructor({ message, status }: { message: string; status: number }) {
+    super({ message, status });
   }
 
   handle(res: Response) {
-    return res.status(this.code).send(this);
+    return res.status(this.status).json({
+      status: this.status,
+      message: this.message,
+    });
   }
 }

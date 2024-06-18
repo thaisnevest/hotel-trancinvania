@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "htrancinvania"
+      POSTGRES_PASSWORD: "12345678"
+      POSTGRES_DB: "htrancinvania"
+    volumes:
+      - ./docker/dbdata:/var/lib/postgresql/data

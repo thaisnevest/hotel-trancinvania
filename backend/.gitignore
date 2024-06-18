@@ -34,3 +34,7 @@ lib/
 
 # Deploy
 .vercel
+
+#docker
+
+docker/

@@ -2,10 +2,10 @@ import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import logger from './logger';
-import setupRoutes from './routes/index';
 import { HttpError } from './utils/errors/http.error';
 import { FailureResult } from './utils/result';
 import Database from './database';
+import router from '../src/routes/index';
 
 const app: express.Express = express();
 app.use(express.json());
@@ -16,7 +16,7 @@ app.use(
   })
 );
 
-setupRoutes(app);
+app.use(router);
 
 app.use(
   (
@@ -30,9 +30,8 @@ app.use(
     }
 
     new FailureResult({
-      msg: error.msg ?? error.message,
-      msgCode: error.msgCode,
-      code: error.status,
+      message: error.msg ?? error.message,
+      status: error.status,
     }).handle(res);
   }
 );

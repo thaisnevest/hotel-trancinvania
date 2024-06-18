@@ -25,7 +25,7 @@ Feature: Busca de reservas com filtro (localidade, preço, reviews, etc.)
     And eu preencho o filtro de data de check-out com “21/05/2024”
     And eu preencho o filtro de quantidade de pessoas com “2 adultos” e “0 crianças”
     And eu preencho o filtro de quartos com “1 quarto”
-    And eu clico em pesquisar
+    And eu seleciono para pesquisar
     Then eu vou para a página “resultados”
     And eu vejo que não existem resultados para minha busca
 
@@ -50,13 +50,13 @@ Feature: Busca de reservas com filtro (localidade, preço, reviews, etc.)
     And eu preencho o filtro de data de check-out com “19/05/2024”
     And eu preencho o filtro de quantidade de pessoas com “0 adultos” e “2 crianças”
     And eu preencho o filtro de quartos com “1 quarto”
-    And eu clico em pesquisar
+    And eu seleciono para pesquisar
     Then eu vejo uma mensagem dizendo que o local não foi especificado
     And eu continuo na página de busca de reservas
 
-    Scenario: fazer uma busca de reservas com login, sem encontrar reservas
+        Scenario: fazer uma busca de reservas com login, sem encontrar reservas
     Given eu estou na página inicial 
-    And eu estou logado
+    And eu estou logado com o usuário “Maria” com senha "123"
     When eu seleciono o botão de buscas no site
     And eu preencho o filtro de local com “Recife”
     And eu preencho o filtro de data de check-in com “16/05/2024”
@@ -69,7 +69,7 @@ Feature: Busca de reservas com filtro (localidade, preço, reviews, etc.)
 
     Scenario: fazer uma busca de reservas com login, encontrando reservas
     Given eu estou na página inicial 
-    And eu estou logado com o usuário “Maria”
+    And eu estou logado com o usuário “Maria” com senha "123"
     When eu seleciono o botão de buscas no site
     And eu preencho o filtro de local com “Recife”
     And eu preencho o filtro de data de check-in com “16/05/2024”
