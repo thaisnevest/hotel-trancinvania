@@ -5,7 +5,7 @@ import logger from './logger';
 import { HttpError } from './utils/errors/http.error';
 import { FailureResult } from './utils/result';
 import Database from './database';
-import router from '../src/routes/index';
+import router from '../src/routes';
 
 const app: express.Express = express();
 app.use(express.json());

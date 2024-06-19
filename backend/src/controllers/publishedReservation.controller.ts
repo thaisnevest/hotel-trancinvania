@@ -69,7 +69,7 @@ export default class PublishedReservationController {
     public setupRoutes(router: Router) {
         router.get(this.prefix, (req, res) => this.getAllPublishedReservations(req, res));
         router.post(this.prefix, validateData(publishedReservationGetDto), (req, res) => this.getPublishedReservationsByFilters(req, res));
-        router.put(`${this.prefix}/:id`, validateData(updatePublishedReservationDto), (req, res) => this.updatePublishedReservation(req, res));
+        router.patch(`${this.prefix}/:id`, validateData(updatePublishedReservationDto), (req, res) => this.updatePublishedReservation(req, res));
         router.delete(`${this.prefix}/:id`, (req, res) => this.deletePublishedReservation(req, res));
         router.post(`${this.prefix}/:id/cancel`, (req, res) => this.cancelReservation(req, res));
     }

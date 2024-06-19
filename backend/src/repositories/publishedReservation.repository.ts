@@ -39,7 +39,7 @@ export default class PublishedReservationRepository {
         return reservation;
     }
 
-    async cancelReservation(id: number) {
+    async cancelReservation(id: number, reserveId: number) {
       const reservation = await this.prisma.publishedReservation.findUnique({
           where: { id },
           include: { hotelier: true }, 
@@ -47,9 +47,15 @@ export default class PublishedReservationRepository {
       if (!reservation) {
           throw new HttpNotFoundError({ msg: 'Reservation not found' });
       }
+      // disconnect by the reserve by reseveId
       return this.prisma.publishedReservation.update({
           where: { id },
           data: {
+              reservations: {
+                  disconnect: {
+                      id: reserveId,
+                  },
+              },
           },
       });
   }
